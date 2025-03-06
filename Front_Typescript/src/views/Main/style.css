@@ -1,0 +1,14 @@
+#main-wrapper {
+    width: 100%;
+    min-height: 960px; 
+    /* background-color: gray; */
+   
+}
+
+.main-container {
+    padding: 1px 310px 1px 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 400px;
+    gap: 2px;
+}
