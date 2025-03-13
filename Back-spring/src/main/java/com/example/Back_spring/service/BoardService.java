@@ -9,8 +9,10 @@ import com.example.Back_spring.repository.*;
 import com.example.Back_spring.dto.request.board.PostBoardRequestDto;
 import com.example.Back_spring.repository.resultSet.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -36,6 +38,11 @@ public class BoardService {
     private final RedisTemplate<Long, GetBoardResultSet> redisTemplate;
     private final MongoSearchLogRepository mongoSearchLogRepository;
     private final ElasticsearchBoardRepository elasticsearchBoardRepository ;
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    private static final String TOPIC = "my-json-topic";
 
     public ResponseEntity<? super GetBoardListResponseDto> getBoardList () {
 
@@ -150,6 +157,8 @@ public class BoardService {
 
             boardEntity.increaseCommentCount();
             boardRepository.save(boardEntity);
+            String writerEmail = boardEntity.getWriterEmail();
+            kafkaTemplate.send(TOPIC, writerEmail);
         }
         catch (Exception exception) {
             exception.printStackTrace();

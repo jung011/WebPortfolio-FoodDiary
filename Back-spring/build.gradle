@@ -24,6 +24,8 @@ repositories {
 }
 
 dependencies {
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'

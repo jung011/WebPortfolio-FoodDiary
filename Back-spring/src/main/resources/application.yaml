@@ -30,6 +30,9 @@ spring:
       host: localhost
       port: 9200
 
+  kafka:
+    bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+
 file:
   url: http://localhost:8080/file/
   path: D:/portfolio/
